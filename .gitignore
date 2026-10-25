@@ -1,0 +1,27 @@
+# Dependencies and build output
+**/node_modules/
+coverage/
+dist/
+*.log
+# Personal IDE and WeChat settings
+project.private.config.json
+.idea/
+.vscode/
+.wechat/
+.DS_Store
+Thumbs.db
+# Local credentials and deployment notes
+.env
+.env.*
+!.env.example
+*.local.*
+!*.local.example.*
+*.pem
+*.key
+*.p12
+*.pfx
+# Data exports, backups and archives
+exports/
+backups/
+*.csv
+*.zip
