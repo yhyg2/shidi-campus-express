@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>拾递 v3 · 管理后台设计预览</title>
+<link rel="stylesheet" href="design-v3.css">
+<style>
+  body { margin: 0; background: #e6eae1; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .topbar { padding: 22px 32px 4px; font-size: 13px; color: #5d6c61; }
+  .topbar b { color: #24563f; }
+  .wrap { display: flex; gap: 22px; padding: 16px 32px 32px; }
+  .frame { width: 375px; height: 780px; background: #f5f6f1; border-radius: 30px; overflow: hidden; box-shadow: 0 18px 40px rgba(29,42,35,.16); flex-shrink: 0; display: flex; flex-direction: column; }
+  .statusbar { height: 28px; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 20px 2px; font-size: 11px; color: #2c3a30; font-weight: 600; flex-shrink: 0; }
+  .navbar { height: 44px; display: flex; align-items: center; justify-content: center; position: relative; font-size: 15px; font-weight: 600; color: #1d2a23; flex-shrink: 0; }
+  .navbar .back { position: absolute; left: 16px; font-size: 20px; font-weight: 400; color: #3c4d42; }
+  .screen { flex: 1; overflow: hidden; min-height: 0; }
+  .tabbar { position: static; height: 52px; background: #fff; border-top: 1px solid #eef1e8; display: flex; flex-shrink: 0; }
+  .tabitem { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: #8b988f; }
+  .tabitem img { width: 22px; height: 22px; }
+  .tabitem.on { color: #24563f; }
+  .cap { text-align: center; font-size: 12px; color: #6d7c70; margin-top: 10px; }
+  .screen .page { min-height: 0; }
+</style>
+</head>
+<body>
+<div class="topbar"><b>拾递 v3</b> · 管理后台静态设计预览（真实 WXSS 转换渲染，非小程序截图）</div>
+<div class="wrap">
+
+  <!-- 1 首页 -->
+  <div>
+  <div class="frame">
+    <div class="statusbar"><span>9:41</span><span>●●● ▮</span></div>
+    <div class="navbar">拾递 · 校园首页</div>
+    <div class="screen">
+      <div class="page page--bar">
+        <div class="home__head">
+          <div class="eyebrow">SHIDI · CAMPUS EXPRESS</div>
+          <div class="row">
+            <div class="home__brand">拾递</div>
+            <div class="campus-chip"><span class="campus-chip__dot"></span><span>示例校区</span><span class="campus-chip__caret">⌄</span></div>
+          </div>
+        </div>
+        <div class="hero">
+          <div class="hero__badge">同校同学 · 顺路帮取</div>
+          <div class="hero__title">把取快递的时间，</div>
+          <div class="hero__title">留给校园生活。</div>
+          <div class="sub">从驿站到你楼下，同校认证代取帮你走完最后这一程。</div>
+          <button class="btn btn--primary hero__cta">帮我取快递 ↗</button>
+          <div class="hero__mark">递</div>
+        </div>
+        <div class="notice-bar">
+          <span class="notice-bar__tag">公告</span>
+          <span class="notice-bar__text">五一期间取件时间调整为 10:00–20:00</span>
+          <span class="notice-bar__more">›</span>
+        </div>
+        <div class="card staff-card" style="margin-top:20px">
+          <div class="row">
+            <div class="row--start" style="flex:1">
+              <div class="staff-card__icon">◈</div>
+              <div class="grow">
+                <div class="h3">管理后台</div>
+                <div class="muted mt8">运营者 · 定价、公告、人员与订单</div>
+              </div>
+            </div>
+            <span class="link">进入 ›</span>
+          </div>
+        </div>
+        <div class="sec-head"><span class="h2">进行中的委托</span><span class="link">全部订单 ›</span></div>
+        <div class="oc">
+          <div class="oc__head">
+            <div class="oc__route"><span class="oc__station">示例校内驿站</span><span class="oc__arrow">→</span><span class="oc__building">3 号楼 502</span></div>
+            <span class="pill pill--progress">待接单</span>
+          </div>
+          <div class="oc__meta"><span class="oc__meta-txt">示例校区 · 2 件 · 小件</span></div>
+          <div class="oc__foot"><span class="oc__time">3 分钟前</span><span class="oc__amount"><span class="oc__unit">¥</span>6.00</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tabbar">
+      <div class="tabitem on"><img src="../miniprogram/images/tabbar/home-active.png">首页</div>
+      <div class="tabitem"><img src="../miniprogram/images/tabbar/orders.png">订单</div>
+      <div class="tabitem"><img src="../miniprogram/images/tabbar/profile.png">我的</div>
+    </div>
+  </div>
+  <div class="cap">首页 · 公告 + 管理入口</div>
+  </div>
+
+  <!-- 2 管理台概览 -->
+  <div>
+  <div class="frame">
+    <div class="statusbar"><span>9:41</span><span>●●● ▮</span></div>
+    <div class="navbar"><span class="back">‹</span>校区管理台</div>
+    <div class="screen">
+      <div class="page page--bar">
+        <div class="eyebrow">CAMPUS OPS</div>
+        <div class="row"><div class="h1">校区管理台</div><span class="pill pill--progress">运营者</span></div>
+        <div class="sub mt8">人员、定价、公告与订单。所有写操作都会记入操作日志。</div>
+        <div class="tabs">
+          <div class="tab tab--on">概览</div>
+          <div class="tab">订单</div>
+          <div class="tab">成员</div>
+          <div class="tab">代取</div>
+          <div class="tab">定价</div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-box"><span class="stat-box__num">3</span><span class="stat-box__label">待接单</span></div>
+          <div class="stat-box"><span class="stat-box__num">2</span><span class="stat-box__label">进行中</span></div>
+          <div class="stat-box"><span class="stat-box__num">7</span><span class="stat-box__label">今日新增</span></div>
+          <div class="stat-box"><span class="stat-box__num">4</span><span class="stat-box__label">在线代取</span></div>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <div class="row"><div class="h3">待处理</div><span class="muted">共 1 个代取待审核</span></div>
+          <div class="hair"></div>
+          <div class="row"><span class="muted">累计订单 18 · 已完成 11 · 已取消 2</span></div>
+          <div class="row mt16"><span class="muted">管理成员 3 人</span><span class="link">去管理 ›</span></div>
+        </div>
+        <div class="sec-head"><span class="h2">最近订单</span><span class="link">全部 ›</span></div>
+        <div class="oc">
+          <div class="oc__head">
+            <div class="oc__route"><span class="oc__station">示例东门驿站</span><span class="oc__arrow">→</span><span class="oc__building">接单后可见</span></div>
+            <span class="pill pill--progress">配送中</span>
+          </div>
+          <div class="oc__meta"><span class="oc__meta-txt">示例校区 · 1 件 · 中件</span></div>
+          <div class="oc__foot"><span class="oc__time">18 分钟前</span><span class="oc__amount"><span class="oc__unit">¥</span>6.00</span></div>
+        </div>
+        <div class="sec-head"><span class="h2">操作日志</span></div>
+        <div class="card">
+          <div class="log-row"><span class="log-row__action">pricing.save</span><span class="log-row__time">10-24 18:02</span></div>
+          <div class="log-row"><span class="log-row__action">notice.save</span><span class="log-row__time">10-24 17:41</span></div>
+          <div class="log-row"><span class="log-row__action">member.invite</span><span class="log-row__time">10-24 17:20</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">管理台 · 概览</div>
+  </div>
+
+  <!-- 3 成员 -->
+  <div>
+  <div class="frame">
+    <div class="statusbar"><span>9:41</span><span>●●● ▮</span></div>
+    <div class="navbar"><span class="back">‹</span>校区管理台</div>
+    <div class="screen">
+      <div class="page page--bar">
+        <div class="eyebrow">CAMPUS OPS</div>
+        <div class="row"><div class="h1">校区管理台</div><span class="pill pill--progress">超级管理员</span></div>
+        <div class="sub mt8">人员、定价、公告与订单。所有写操作都会记入操作日志。</div>
+        <div class="tabs">
+          <div class="tab">概览</div>
+          <div class="tab">订单</div>
+          <div class="tab tab--on">成员</div>
+          <div class="tab">代取</div>
+          <div class="tab">定价</div>
+        </div>
+        <div class="card">
+          <div class="row">
+            <div class="grow">
+              <div class="h3">邀请成员</div>
+              <div class="muted mt8">生成一次性邀请码，对方在「我的 → 加入运营团队」输入即可。</div>
+            </div>
+            <button class="btn btn--primary btn--sm">生成邀请码</button>
+          </div>
+          <div class="invite-box">
+            <div class="muted">仅显示一次 · 运营者 · 有效至 10-27 17:20</div>
+            <div class="invite-box__code">K7QM2XPD</div>
+            <div class="btn-row mt16"><button class="btn btn--ghost btn--sm">复制</button><button class="btn btn--soft btn--sm">发给同学</button></div>
+          </div>
+        </div>
+        <div class="sec-head"><span class="h2">管理成员</span><span class="hint">成员 3 人</span></div>
+        <div class="card member">
+          <div class="row">
+            <div class="grow"><div class="h3">清梦</div><div class="muted mt8">超级管理员 · 加入于 2026-10-24</div></div>
+            <span class="pill pill--pending">超管</span>
+          </div>
+        </div>
+        <div class="card member">
+          <div class="row">
+            <div class="grow"><div class="h3">枕霞听灵</div><div class="muted mt8">运营者 · 加入于 2026-10-24</div></div>
+            <span class="pill pill--progress">成员</span>
+          </div>
+          <div class="btn-row mt16"><button class="btn btn--ghost btn--sm">改角色</button><button class="btn btn--danger btn--sm">移除</button></div>
+        </div>
+        <div class="sec-head"><span class="h2">未使用的邀请码</span></div>
+        <div class="card">
+          <div class="invite-row">
+            <div class="grow"><div class="h3">K7QM2XPD</div><div class="muted">运营者 · 有效至 10-27 17:20</div></div>
+            <span class="pill pill--progress">未使用</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">管理台 · 成员与角色</div>
+  </div>
+
+  <!-- 4 定价 -->
+  <div>
+  <div class="frame">
+    <div class="statusbar"><span>9:41</span><span>●●● ▮</span></div>
+    <div class="navbar"><span class="back">‹</span>校区管理台</div>
+    <div class="screen">
+      <div class="page page--bar">
+        <div class="eyebrow">CAMPUS OPS</div>
+        <div class="row"><div class="h1">校区管理台</div><span class="pill pill--progress">运营者</span></div>
+        <div class="sub mt8">人员、定价、公告与订单。所有写操作都会记入操作日志。</div>
+        <div class="tabs">
+          <div class="tab">概览</div>
+          <div class="tab">订单</div>
+          <div class="tab">成员</div>
+          <div class="tab tab--on">定价</div>
+          <div class="tab">公告</div>
+        </div>
+        <div class="card">
+          <div class="card__head"><span class="card__title">基础规则</span><span class="card__hint">单位：元</span></div>
+          <div class="field">
+            <div class="label"><span>起步价</span><span class="label__flag">每单固定</span></div>
+            <div class="input">1.00</div>
+          </div>
+          <div class="field">
+            <div class="label"><span>计费方式</span></div>
+            <div class="chips">
+              <div class="chip chip--on">按件计费（当前）</div>
+              <div class="chip">按单计费</div>
+            </div>
+            <div class="hint">按件：单价 × 件数；按单：只看尺寸单价，不看件数。</div>
+          </div>
+          <div class="field-row">
+            <div class="field grow"><div class="label"><span>最低收费</span></div><div class="input">2.00</div></div>
+            <div class="field grow"><div class="label"><span>最高收费</span></div><div class="input">30.00</div></div>
+          </div>
+          <div class="row mt16">
+            <span class="muted">按距离加价（需要代取上报位置）</span>
+            <div class="switch"><div class="switch__dot"></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__head"><span class="card__title">包裹尺寸</span><span class="card__hint">学生下单时选这个</span></div>
+          <div class="size-row">
+            <div class="grow"><div class="h3">小件</div><div class="input input--inline">文件、小盒、单件快递</div></div>
+            <div class="size-row__price"><span class="muted">¥</span><div class="input input--price">3.00</div></div>
+          </div>
+          <div class="size-row">
+            <div class="grow"><div class="h3">中件</div><div class="input input--inline">鞋盒、双肩包大小</div></div>
+            <div class="size-row__price"><span class="muted">¥</span><div class="input input--price">5.00</div></div>
+          </div>
+          <div class="size-row">
+            <div class="grow"><div class="h3">大件</div><div class="input input--inline">行李箱、大纸箱</div></div>
+            <div class="size-row__price"><span class="muted">¥</span><div class="input input--price">8.00</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__head"><span class="card__title">时段加价</span><span class="card__hint">可增删</span></div>
+          <div class="slot-row"><span class="grow">尽快送达</span><span class="muted">+¥</span><div class="input input--price">0.00</div><span class="slot-row__del">✕</span></div>
+          <div class="slot-row"><span class="grow">17:00–19:00</span><span class="muted">+¥</span><div class="input input--price">1.00</div><span class="slot-row__del">✕</span></div>
+          <button class="btn btn--ghost btn--sm mt16">＋ 添加时段</button>
+        </div>
+        <button class="btn btn--primary btn--block mt16">保存价格</button>
+      </div>
+    </div>
+  </div>
+  <div class="cap">管理台 · 定价</div>
+  </div>
+
+</div>
+</body>
+</html>
