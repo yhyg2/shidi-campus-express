@@ -1,6 +1,7 @@
 // 可复现的公开发布检查；无法代替人工判断与真实部署审查。
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const issues = [];
@@ -22,6 +23,12 @@ function walk(dir) {
     const name = relative(root, path);
     if (item.isSymbolicLink()) { issues.push(name + ': symbolic link'); continue; }
     if (item.isDirectory()) { walk(path); continue; }
+    // Permit only the reviewed source distribution; reject other archives.
+    if (name === 'shidi-campus-express-public-v3.1.0.zip') {
+      const digest = createHash('sha256').update(readFileSync(path)).digest('hex');
+      if (digest !== '1f6be1fa969c0e37425f75ab989b52134a15257521a34a60c853656427a202c7') issues.push(name + ': archive differs from reviewed distribution');
+      continue;
+    }
     if (item.name === 'project.private.config.json' || /^\.env(?:\.|$)/.test(item.name) || /\.(pem|key|p12|pfx|zip|csv)$/.test(item.name)) issues.push(name + ': private or exported file');
     if (!/\.(?:js|mjs|json|md|wxml|wxss|html|css|yml|yaml)$/.test(item.name)) continue;
     checked++;
