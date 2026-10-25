@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "status-flow": "/components/status-flow/index",
+    "empty-state": "/components/empty-state/index"
+  }
+}

@@ -1,0 +1,11 @@
+<view class="page">
+  <view class="eyebrow">PRIVACY</view>
+  <view class="h1">{{doc.title}}</view>
+  <view class="sub mt8">更新日期：{{doc.updated}}</view>
+  <view class="card" wx:for="{{doc.blocks}}" wx:key="title">
+    <view class="h3">{{item.title}}</view>
+    <text class="pv-text mt16">{{item.body}}</text>
+  </view>
+  <button wx:if="{{contact.wechatId}}" class="btn btn--ghost mt24" bindtap="copyContact">复制客服微信</button>
+  <view class="pv-foot muted">拾递 · 校园代取</view>
+</view>

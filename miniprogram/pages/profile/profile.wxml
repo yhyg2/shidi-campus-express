@@ -1,0 +1,95 @@
+<view class="page page--bar">
+  <view class="eyebrow">MY CAMPUS IDENTITY</view>
+  <view class="h1">我的校园身份</view>
+
+  <view class="card mt32 id-card">
+    <view class="row--start">
+      <view class="id-card__avatar">{{avatar}}</view>
+      <view class="grow">
+        <view class="row">
+          <text class="h2">{{user.nickname || '加载中'}}</text>
+          <text class="pill {{isStaff ? 'pill--pending' : 'pill--done'}}">{{identityLabel}}</text>
+        </view>
+        <view class="muted mt8">{{campusName}} · 微信账号已绑定</view>
+      </view>
+      <text class="link" bindtap="editName">改昵称</text>
+    </view>
+    <view class="hair"></view>
+    <view class="row">
+      <view class="row--start gap8">
+        <text class="pill pill--{{roleTag === '代取' ? 'progress' : 'done'}}">{{roleTag}}</text>
+        <text class="muted">{{runnerLabel}}</text>
+      </view>
+      <text wx:if="{{isRunner}}" class="link" bindtap="runner">工作台 ›</text>
+    </view>
+  </view>
+
+  <view wx:if="{{isStaff}}" class="card staff-card" bindtap="admin">
+    <view class="row">
+      <view class="grow">
+        <view class="h3">管理后台</view>
+        <view class="muted mt8">{{roleLabel}} · 定价、公告、成员与订单</view>
+      </view>
+      <text class="link">进入 ›</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card__head"><text class="card__title">代取资格</text><text class="card__hint">邀请码 + 学号核验</text></view>
+    <view class="muted">不需要另建账号：你现在就是普通用户，认证通过后同一账号既能下单也能接单。认证需要管理员发放的邀请码，提交姓名学号后由管理员线下核验校园证件。微信登录只证明微信身份，不等于学籍已验证。</view>
+    <view class="btn-row mt24">
+      <button wx:if="{{isRunner}}" class="btn btn--soft" bindtap="hall">接单大厅</button>
+      <button wx:else class="btn btn--primary" bindtap="apply">申请 / 查看认证</button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="list-item" bindtap="notice">
+      <view class="list-item__icon">✦</view>
+      <view class="list-item__body">
+        <view class="list-item__title">校园公告</view>
+        <view class="list-item__desc">{{noticeCount ? noticeCount + ' 条进行中' : '暂无公告'}}</view>
+      </view>
+      <text class="list-item__caret">›</text>
+    </view>
+    <view class="list-item" bindtap="join">
+      <view class="list-item__icon">◇</view>
+      <view class="list-item__body">
+        <view class="list-item__title">加入运营团队</view>
+        <view class="list-item__desc">用管理员发的邀请码加入</view>
+      </view>
+      <text class="list-item__caret">›</text>
+    </view>
+    <view class="list-item" bindtap="privacy">
+      <view class="list-item__icon">◎</view>
+      <view class="list-item__body">
+        <view class="list-item__title">个人信息说明</view>
+        <view class="list-item__desc">取件码、截图与手机号的使用范围</view>
+      </view>
+      <text class="list-item__caret">›</text>
+    </view>
+    <view class="list-item">
+      <view class="list-item__icon">↗</view>
+      <view class="list-item__body">
+        <view class="list-item__title">分享给同学</view>
+        <view class="list-item__desc">把拾递转发到班级群</view>
+      </view>
+      <button class="btn btn--ghost btn--sm" open-type="share">分享</button>
+    </view>
+  </view>
+
+  <view wx:if="{{isLocal}}" class="card card--flat">
+    <view class="row">
+      <view class="grow">
+        <view class="h3">本地演示工具</view>
+        <view class="muted mt8">当前用本机数据跑界面。配置云开发后这些入口会自动消失。</view>
+      </view>
+    </view>
+    <view class="btn-row mt24">
+      <button class="btn btn--ghost btn--sm" bindtap="switchRole">切换角色</button>
+      <button class="btn btn--ghost btn--sm" bindtap="resetLocal">重置数据</button>
+    </view>
+  </view>
+
+  <view class="profile__foot muted">拾递 v{{version}}</view>
+</view>

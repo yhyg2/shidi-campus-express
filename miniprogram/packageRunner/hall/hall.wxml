@@ -1,0 +1,30 @@
+<view class="page page--bar">
+  <view class="eyebrow">ORDER HALL</view>
+  <view class="h1">同校待接单</view>
+  <view class="sub mt8">这里只显示驿站、送达地址、件数与费用；取件码、联系人和电话要接单后才可见。</view>
+
+  <view wx:if="{{serviceTip}}" class="card card--flat hall-tip">{{serviceTip}}</view>
+  <view wx:if="{{staleTip}}" class="card card--flat hall-tip hall-tip--stale">
+    <view class="row--start gap8"><view class="dot dot--stale"></view><text>{{staleTip}}</text></view>
+  </view>
+
+  <view wx:if="{{!verifying && !online}}" class="card card--flat hall-tip">
+    <view class="h3">你当前已休息</view>
+    <view class="muted mt8">休息状态下可以浏览大厅，但接单前需要先上线。</view>
+    <button class="btn btn--soft btn--sm mt16" bindtap="runner">去开启接单</button>
+  </view>
+
+  <empty-state wx:if="{{verifying}}" icon="⇄" title="需要认证代取身份" desc="接单大厅只对已通过校区认证的代取开放。" actionText="申请认证" bind:action="apply" />
+
+  <block wx:elif="{{loading}}">
+    <view class="skeleton sk-card"></view>
+    <view class="skeleton sk-card"></view>
+  </block>
+
+  <block wx:elif="{{orders.length}}">
+    <view class="hall-count muted">共 {{orders.length}} 单等待接取</view>
+    <order-card wx:for="{{orders}}" wx:key="id" order="{{item}}" actionText="接单" bind:open="claim" bind:action="claim" />
+  </block>
+
+  <empty-state wx:else icon="◌" title="暂时没有待接订单" desc="同校区有新委托时会出现在这里。" actionText="刷新看看" bind:action="load" />
+</view>

@@ -1,0 +1,6 @@
+.id-card__avatar {
+  width: 96rpx; height: 96rpx; border-radius: 28rpx; background: #24563f; color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 40rpx; margin-right: 22rpx; flex-shrink: 0;
+}
+.staff-card { border-color: #cfdcc4; background: linear-gradient(150deg, #f7faf2, #eef4e6); }
+.profile__foot { text-align: center; padding: 40rpx 0 20rpx; font-size: 21rpx; color: #b2bcb1; }

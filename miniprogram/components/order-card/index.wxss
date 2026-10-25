@@ -1,0 +1,21 @@
+.oc {
+  background: #fff;
+  border: 1rpx solid #e3e8dd;
+  border-radius: 24rpx;
+  padding: 28rpx 28rpx 22rpx;
+  margin-bottom: 20rpx;
+}
+.oc--hover { background: #fbfcf8; }
+.oc__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16rpx; }
+.oc__route { flex: 1; min-width: 0; font-size: 29rpx; font-weight: 600; line-height: 1.45; color: #1d2a23; }
+.oc__station, .oc__building { }
+.oc__arrow { color: #a9b6ab; margin: 0 10rpx; font-weight: 400; font-size: 24rpx; }
+.oc__meta { display: flex; align-items: center; justify-content: space-between; gap: 12rpx; margin-top: 10rpx; }
+.oc__meta-txt { font-size: 23rpx; color: #8b988f; }
+.oc__foot { display: flex; align-items: flex-end; justify-content: space-between; margin-top: 22rpx; padding-top: 18rpx; border-top: 1rpx solid #eef1e8; }
+.oc__time { font-size: 22rpx; color: #a3aea4; }
+.oc__right { display: flex; align-items: center; gap: 16rpx; }
+.oc__amount { font-size: 34rpx; font-weight: 600; color: #b56a35; font-variant-numeric: tabular-nums; line-height: 1; }
+.oc__unit { font-size: 22rpx; font-weight: 500; margin-right: 2rpx; }
+.oc__caret { color: #c3ccc2; font-size: 30rpx; line-height: 1; }
+.oc__btn { font-size: 23rpx; color: #fff; background: #24563f; border-radius: 10rpx; padding: 10rpx 22rpx; line-height: 1.4; }

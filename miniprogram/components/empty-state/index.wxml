@@ -1,0 +1,6 @@
+<view class="es">
+  <view class="es__icon">{{icon}}</view>
+  <view class="es__title">{{title}}</view>
+  <view wx:if="{{desc}}" class="es__desc">{{desc}}</view>
+  <button wx:if="{{actionText}}" class="btn btn--soft btn--sm es__action" bindtap="onAction">{{actionText}}</button>
+</view>

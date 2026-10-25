@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "拾递 · 校园代取",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "order-card": "/components/order-card/index",
+    "empty-state": "/components/empty-state/index",
+    "campus-picker": "/components/campus-picker/index"
+  }
+}

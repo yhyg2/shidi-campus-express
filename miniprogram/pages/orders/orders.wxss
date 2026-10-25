@@ -1,0 +1,12 @@
+.tabs { display: flex; white-space: nowrap; margin: 30rpx -32rpx 24rpx; padding: 0 32rpx; }
+.tab {
+  display: inline-flex; align-items: center; gap: 8rpx; flex-shrink: 0;
+  padding: 14rpx 26rpx; margin-right: 12rpx; border-radius: 40rpx;
+  background: #fff; border: 1rpx solid #e3e8dd; font-size: 25rpx; color: #55645a;
+}
+.tab--on { background: #24563f; border-color: #24563f; color: #fff; }
+.tab__count { font-size: 19rpx; background: rgba(36,86,63,.1); color: #24563f; border-radius: 20rpx; padding: 0 10rpx; line-height: 1.7; }
+.tab--on .tab__count { background: rgba(255,255,255,.22); color: #fff; }
+
+.sk-card { height: 190rpx; margin-bottom: 20rpx; }
+.orders__foot { text-align: center; padding: 32rpx 0 20rpx; font-size: 21rpx; color: #b2bcb1; }

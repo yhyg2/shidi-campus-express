@@ -1,0 +1,22 @@
+.service-warn--stale { border-color: #ecc9c9; background: #fdf1f0; color: #a9503f; }
+.dot--stale { width: 14rpx; height: 14rpx; border-radius: 50%; background: #c9463d; flex-shrink: 0; }
+.service-warn { margin-top: 24rpx; border-color: #e6dcc2; background: #fbf7e9; font-size: 23rpx; color: #8a6a1f; line-height: 1.6; }
+
+.sk-card { height: 200rpx; margin-top: 32rpx; }
+.runner-status { margin-top: 32rpx; }
+.runner-status__btn { flex-shrink: 0; }
+.dot { width: 14rpx; height: 14rpx; border-radius: 50%; background: #c3ccc2; margin-right: 12rpx; }
+.dot--on { background: #4f9d6a; box-shadow: 0 0 0 6rpx rgba(79,157,106,.16); }
+
+.stats { display: flex; gap: 14rpx; margin: 8rpx 0 12rpx; }
+.stat { flex: 1; background: #fff; border: 1rpx solid #e3e8dd; border-radius: 20rpx; padding: 24rpx 20rpx; }
+.stat__num { display: block; font-size: 42rpx; font-weight: 600; color: #24563f; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.stat__label { display: block; font-size: 21rpx; color: #98a397; margin-top: 6rpx; }
+
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; margin: 36rpx 0 18rpx; }
+
+.task { background: #fff; border: 1rpx solid #e3e8dd; border-radius: 24rpx; padding: 26rpx; margin-bottom: 18rpx; }
+.task__head { display: flex; }
+.task__route { font-size: 28rpx; font-weight: 600; flex: 1; min-width: 0; margin-right: 12rpx; line-height: 1.45; }
+.task__actions { display: flex; gap: 14rpx; margin-top: 20rpx; padding-top: 18rpx; border-top: 1rpx solid #eef1e8; }
+.task__actions .btn { flex: 1; }

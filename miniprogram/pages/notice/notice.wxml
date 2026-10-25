@@ -1,0 +1,30 @@
+<view class="page">
+  <view class="eyebrow">NOTICE</view>
+  <view class="h1">校园公告</view>
+  <view class="sub mt8">由校区管理员发布，内容包括服务时间、价格调整与临时通知。</view>
+
+  <view wx:if="{{loading}}" class="loading-line">正在加载…</view>
+
+  <view wx:elif="{{error}}" class="card card--flat">
+    <view class="muted">{{error}}</view>
+    <button class="btn btn--soft btn--sm mt16" bindtap="load">重新加载</button>
+  </view>
+
+  <block wx:elif="{{list.length}}">
+    <view wx:for="{{list}}" wx:key="id" class="card notice-item {{item.level === 'warn' ? 'notice-item--warn' : ''}}">
+      <view class="row">
+        <view class="row--start">
+          <text wx:if="{{item.pinned}}" class="notice-item__pin">置顶</text>
+          <text class="notice-item__level">{{item.levelLabel}}</text>
+        </view>
+        <text class="muted">{{item.dateText}}</text>
+      </view>
+      <view class="h3 mt16">{{item.title}}</view>
+      <view class="notice-item__body">{{item.content}}</view>
+    </view>
+  </block>
+
+  <empty-state wx:else icon="✦" title="暂无公告" desc="管理员发布公告后会显示在这里。" actionText="回到首页" bind:action="goHome" />
+
+  <view class="notice__foot muted">公告内容以管理员最新发布为准</view>
+</view>

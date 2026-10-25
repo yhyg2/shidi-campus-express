@@ -1,0 +1,91 @@
+<view class="page page--bar">
+  <view class="eyebrow">VERIFIED RUNNER</view>
+  <view class="h1">顺路，帮个忙。</view>
+  <view class="sub mt8">同一账号，认证后即可接单：校区邀请码 → 学号校验 → 管理员核验</view>
+
+  <block wx:if="{{loading}}">
+    <view class="skeleton sk-card"></view>
+  </block>
+
+  <block wx:elif="{{status === 'pending'}}">
+    <view class="card mt32 state-card">
+      <view class="state-card__icon">◷</view>
+      <view class="h2">认证申请已提交</view>
+      <view class="muted mt8">{{campusName}} · 学号 {{user.runner.studentNo}}</view>
+      <view class="muted mt8">管理员核验校园证件后会通过，通过即可进入工作台接单。</view>
+      <button class="btn btn--ghost mt24" bindtap="load">刷新状态 ↻</button>
+    </view>
+  </block>
+
+  <block wx:elif="{{status === 'approved'}}">
+    <view class="card mt32 state-card">
+      <view class="state-card__icon state-card__icon--ok">✓</view>
+      <view class="h2">认证已通过</view>
+      <view class="muted mt8">{{campusName}} · 已具备接单资格</view>
+      <button class="btn btn--primary mt24" bindtap="runner">进入代取工作台</button>
+    </view>
+  </block>
+
+  <block wx:elif="{{status === 'suspended'}}">
+    <view class="card mt32 state-card">
+      <view class="state-card__icon state-card__icon--warn">!</view>
+      <view class="h2">接单权限已暂停</view>
+      <view class="muted mt8">{{reason || '请联系校区管理员了解详情。'}}</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view wx:if="{{status === 'rejected'}}" class="card card--flat mt32">
+      <view class="h3">上次申请未通过</view>
+      <view class="muted mt8">{{reason || '请补充资料后重新提交。'}}</view>
+    </view>
+
+    <view class="card mt32">
+      <view class="card__head"><text class="card__title">认证资料</text><text class="card__hint">{{campusName || '按邀请码所属校区'}}</text></view>
+
+      <view class="field">
+        <view class="label"><text>校区邀请码</text><text class="label__flag">向管理员获取</text></view>
+        <input class="input code-input" value="{{form.code}}" data-field="code" bindinput="onInput" maxlength="12" placeholder="8 位邀请码" />
+        <view class="hint">邀请码一次性使用，绑定你的账号与校区；它本身不等于接单权限。</view>
+      </view>
+
+      <view class="field">
+        <view class="label"><text>真实姓名</text></view>
+        <input class="input" value="{{form.realName}}" data-field="realName" bindinput="onInput" maxlength="30" placeholder="用于管理员核验校园证件" />
+      </view>
+
+      <view class="field">
+        <view class="label"><text>学号</text><text class="label__flag">{{studentNoHint}}</text></view>
+        <input class="input" value="{{form.studentNo}}" data-field="studentNo" bindinput="onInput" maxlength="32" placeholder="请输入你的学号" />
+        <view class="hint">服务端按管理员配置的规则校验格式；微信登录只代表微信身份，不代表学籍已验证。</view>
+      </view>
+
+      <view wx:if="{{requireIdPhoto}}" class="field">
+        <view class="label"><text>学生证 / 校园卡</text><text class="label__flag">必传</text></view>
+        <view class="uploader">
+          <view wx:for="{{photos}}" wx:key="fileID" class="uploader__item">
+            <image class="uploader__img" src="{{item.path}}" mode="aspectFill" />
+            <view class="uploader__del" data-index="{{index}}" catchtap="removeId">✕</view>
+          </view>
+          <view wx:if="{{photos.length < 2}}" class="uploader__add" bindtap="uploadId">
+            <text class="uploader__plus">＋</text>
+            <text class="uploader__label">证件照</text>
+          </view>
+        </view>
+        <view class="hint">照片仅管理员可见，用于核对姓名与学号，请遮挡不必要的个人信息。</view>
+      </view>
+
+      <view class="consent" bindtap="toggleConsent">
+        <view class="consent__box {{consent ? 'consent__box--on' : ''}}">{{consent ? '✓' : ''}}</view>
+        <view class="consent__text">我同意将姓名、学号用于校区代取资格审核，并已阅读<text class="link" catchtap="privacy">个人信息说明</text>。</view>
+      </view>
+
+      <button class="btn btn--primary btn--block mt24" bindtap="submit" loading="{{busy}}" disabled="{{busy}}">提交认证申请</button>
+    </view>
+
+    <view class="card card--flat">
+      <view class="h3">为什么需要这些步骤</view>
+      <view class="muted mt8">代取涉及他人快递与真实地址，代取必须可追溯。邀请码把申请限定到具体校区，学号规则过滤明显错误的信息，管理员核验才是最终授权。</view>
+    </view>
+  </block>
+</view>

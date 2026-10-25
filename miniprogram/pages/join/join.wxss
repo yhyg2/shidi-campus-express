@@ -1,0 +1,11 @@
+.join-input { letter-spacing: 4rpx; font-size: 32rpx; text-align: center; font-variant-numeric: tabular-nums; text-transform: uppercase; }
+.join-done { text-align: left; }
+.join-done__icon {
+  width: 72rpx; height: 72rpx; border-radius: 22rpx; background: #e7efe4; color: #24563f;
+  display: flex; align-items: center; justify-content: center; font-size: 34rpx; margin-bottom: 20rpx;
+}
+.join-role { display: flex; align-items: baseline; gap: 16rpx; padding: 16rpx 0; border-bottom: 1rpx solid #eef1e8; }
+.join-role:last-child { border-bottom: 0; }
+.join-role__name { font-size: 25rpx; color: #24563f; width: 150rpx; flex-shrink: 0; }
+.join-role__desc { font-size: 23rpx; color: #7a8a6e; flex: 1; }
+.join__foot { text-align: center; padding: 40rpx 0; }

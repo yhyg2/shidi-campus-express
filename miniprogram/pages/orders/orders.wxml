@@ -1,0 +1,31 @@
+<view class="page page--bar">
+  <view class="eyebrow">MY ORDERS</view>
+  <view class="h1">每一程，都有回应。</view>
+  <view class="sub mt8">接单、取件、送达，进度都在这里。</view>
+
+  <scroll-view class="tabs" scroll-x enable-flex show-scrollbar="{{false}}">
+    <view wx:for="{{tabs}}" wx:key="id" class="tab {{active === item.id ? 'tab--on' : ''}}" data-id="{{item.id}}" bindtap="switchTab">
+      <text>{{item.label}}</text>
+      <text wx:if="{{item.count}}" class="tab__count">{{item.count}}</text>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{error}}" class="card card--flat">
+    <view class="muted">{{error}}</view>
+    <button class="btn btn--soft btn--sm mt16" bindtap="load">重新加载</button>
+  </view>
+
+  <block wx:if="{{loading}}">
+    <view class="skeleton sk-card"></view>
+    <view class="skeleton sk-card"></view>
+    <view class="skeleton sk-card"></view>
+  </block>
+
+  <block wx:elif="{{orders.length}}">
+    <order-card wx:for="{{orders}}" wx:key="id" order="{{item}}" bind:open="detail" />
+  </block>
+
+  <empty-state wx:else icon="◌" title="{{active === 'all' ? '还没有订单' : '这个状态下暂无订单'}}" desc="提交委托后可以在这里跟进取件与送达进度。" actionText="新建代取" bind:action="create" />
+
+  <view class="orders__foot muted">共 {{orders.length}} 条 · 下拉可刷新</view>
+</view>

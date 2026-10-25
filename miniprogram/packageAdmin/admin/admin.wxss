@@ -1,0 +1,65 @@
+.tabs { display: flex; white-space: nowrap; margin: 28rpx -32rpx 20rpx; padding: 0 32rpx; }
+.tab { display: inline-flex; flex-shrink: 0; padding: 14rpx 28rpx; margin-right: 12rpx; border-radius: 40rpx; background: #fff; border: 1rpx solid #e3e8dd; font-size: 25rpx; color: #55645a; }
+.tab--on { background: #24563f; border-color: #24563f; color: #fff; }
+
+.complaint-row { display: flex; align-items: center; gap: 16rpx; padding: 18rpx 0; border-bottom: 1rpx solid #eef1e8; }
+.complaint-row:last-child { border-bottom: 0; }
+.complaint-row .btn { flex-shrink: 0; }
+.admin-hint { margin-bottom: 16rpx; }
+.admin__foot { text-align: center; padding: 48rpx 0 24rpx; font-size: 21rpx; color: #b2bcb1; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; margin: 36rpx 0 16rpx; }
+
+.stats-grid { display: flex; flex-wrap: wrap; gap: 14rpx; margin-top: 8rpx; }
+.stat-box { width: calc(50% - 7rpx); background: #fff; border: 1rpx solid #e3e8dd; border-radius: 20rpx; padding: 26rpx 24rpx; }
+.stat-box__num { display: block; font-size: 46rpx; font-weight: 600; color: #24563f; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.stat-box__label { display: block; font-size: 21rpx; color: #98a397; margin-top: 6rpx; }
+
+.log-row { display: flex; align-items: baseline; justify-content: space-between; padding: 14rpx 0; border-bottom: 1rpx solid #eef1e8; }
+.log-row:last-child { border-bottom: 0; }
+.log-row__action { font-size: 24rpx; color: #24563f; }
+.log-row__time { font-size: 20rpx; color: #a8b3a9; }
+
+.order-admin { padding: 26rpx; }
+.order-admin__ops { display: flex; gap: 14rpx; margin-top: 20rpx; padding-top: 18rpx; border-top: 1rpx solid #eef1e8; }
+.order-admin__ops .btn { flex: 1; }
+
+.invite-box { margin-top: 22rpx; background: #f4f7ee; border: 1rpx dashed #cfdcc4; border-radius: 16rpx; padding: 22rpx; }
+.invite-box__code { font-size: 42rpx; font-weight: 600; letter-spacing: 6rpx; color: #24563f; margin: 10rpx 0; font-variant-numeric: tabular-nums; }
+.invite-row { display: flex; align-items: center; gap: 16rpx; padding: 18rpx 0; border-bottom: 1rpx solid #eef1e8; }
+.invite-row:last-child { border-bottom: 0; }
+.member { padding: 26rpx; }
+
+.field-row { display: flex; gap: 16rpx; }
+.field-row .field { flex: 1; }
+
+.size-row { display: flex; align-items: flex-start; gap: 16rpx; padding: 18rpx 0; border-bottom: 1rpx solid #eef1e8; }
+.size-row:last-child { border-bottom: 0; }
+.size-row__price { display: flex; align-items: center; gap: 6rpx; padding-top: 30rpx; flex-shrink: 0; }
+.size-row .grow { min-width: 0; }
+.input--inline { margin-top: 10rpx; min-height: 72rpx; padding: 14rpx 18rpx; font-size: 23rpx; }
+.input--price { width: 150rpx; text-align: right; padding: 14rpx 18rpx; min-height: 72rpx; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+.slot-row { display: flex; align-items: center; gap: 12rpx; padding: 14rpx 0; border-bottom: 1rpx solid #eef1e8; font-size: 25rpx; }
+.slot-row:last-of-type { border-bottom: 0; }
+.slot-row__del { color: #b9c3b9; font-size: 26rpx; padding: 8rpx 12rpx; }
+
+.notice-admin { padding: 26rpx; }
+.notice-admin__body { margin-top: 12rpx; font-size: 24rpx; color: #55645a; line-height: 1.7; }
+
+.rule-row { padding: 18rpx 0; border-bottom: 1rpx solid #eef1e8; }
+.rule-row:last-of-type { border-bottom: 0; }
+
+.switch { width: 84rpx; height: 46rpx; border-radius: 30rpx; background: #dfe4da; position: relative; transition: background .2s; flex-shrink: 0; }
+.switch--on { background: #24563f; }
+.switch__dot { position: absolute; top: 4rpx; left: 4rpx; width: 38rpx; height: 38rpx; border-radius: 50%; background: #fff; transition: transform .2s; box-shadow: 0 2rpx 6rpx rgba(0,0,0,.12); }
+.switch--on .switch__dot { transform: translateX(38rpx); }
+
+.campus-block { padding: 20rpx 0; border-bottom: 1rpx solid #eef1e8; }
+.campus-block:last-child { border-bottom: 0; }
+.station-row { display: flex; align-items: center; gap: 12rpx; padding: 14rpx 0; }
+.chip--closable { display: inline-flex; align-items: center; gap: 10rpx; }
+.chip__x { font-size: 20rpx; color: #a8b3a9; padding: 0 4rpx; }
+.chip--add { border-style: dashed; color: #4c7a5f; }
+
+.sheet__textarea { height: 220rpx; }
+.admin-tip { margin-bottom: 16rpx; line-height: 1.7; }

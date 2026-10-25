@@ -1,0 +1,17 @@
+{
+  "name": "api",
+  "version": "3.1.0",
+  "description": "拾递聚合云函数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "4.0.2"
+  },
+  "private": true,
+  "license": "MIT",
+  "overrides": {
+    "@cloudbase/node-sdk": {
+      "@cloudbase/database": "1.5.1",
+      "axios": "1.20.0"
+    }
+  }
+}

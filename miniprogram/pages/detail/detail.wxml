@@ -1,0 +1,178 @@
+<view class="page page--bar" wx:if="{{order}}">
+
+  <view wx:if="{{mode === 'share'}}" class="share-banner">
+    <view class="share-banner__title">这是一份同学分享的代取委托</view>
+    <view class="share-banner__desc">出于隐私保护，分享页不显示取件码、手机号与房间号。</view>
+    <button class="btn btn--soft btn--sm mt16" bindtap="goHome">我也要找人代取 ↗</button>
+  </view>
+
+  <view class="dt-head">
+    <view class="eyebrow">ORDER · {{order.campusName}}</view>
+    <view class="row">
+      <view class="h1">{{order.destination || order.room}}</view>
+      <text class="pill pill--{{order.statusTone}}">{{order.statusText}}</text>
+    </view>
+    <view class="muted mt8">{{order.orderNo || order.id}} · {{order.createText}} 提交</view>
+  </view>
+
+  <view class="card mt24">
+    <status-flow flow="{{order.flow}}" />
+    <view wx:if="{{hint}}" class="dt-hint">{{hint}}</view>
+  </view>
+
+  <view wx:if="{{order.pickupCode}}" class="card code-card">
+    <view class="row">
+      <text class="card__title">取件码</text>
+      <text class="link" bindtap="copyCode">复制</text>
+    </view>
+    <view class="code-card__value">{{order.pickupCode}}</view>
+    <view class="muted">到 {{order.stationName}} 报此码取件。仅下单本人、接单代取与管理员可见。</view>
+  </view>
+
+  <view wx:if="{{order.deliveryCode && isOwner}}" class="card card--flat">
+    <view class="row">
+      <view class="grow">
+        <view class="h3">收货码 <text class="num dt-code-inline">{{order.deliveryCode}}</text></view>
+        <view class="muted mt8">线下交接时让代取报此码核对，避免拿错件。</view>
+      </view>
+      <text class="link" bindtap="copyDelivery">复制</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="route">
+      <view class="route__row">
+        <view class="route__dot"></view>
+        <view class="route__body">
+          <view class="route__label">取件驿站</view>
+          <view class="route__value">{{order.stationName}}</view>
+        </view>
+      </view>
+      <view class="route__line"></view>
+      <view class="route__row">
+        <view class="route__dot route__dot--end"></view>
+        <view class="route__body">
+          <view class="route__label">送达位置</view>
+          <view class="route__value">{{order.destination || order.room}}</view>
+          <view class="muted">{{order.campusName}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="hair"></view>
+    <view class="dt-grid">
+      <view class="dt-grid__item"><text class="dt-grid__label">包裹</text><text class="dt-grid__value">{{order.parcelCount}} 件 · {{order.sizeLabel}}</text></view>
+      <view class="dt-grid__item"><text class="dt-grid__label">时段</text><text class="dt-grid__value">{{order.slot}}</text></view>
+      <view class="dt-grid__item"><text class="dt-grid__label">费用</text><text class="dt-grid__value dt-grid__value--price">¥{{order.amount}}</text></view>
+    </view>
+    <view wx:if="{{order.priceLines.length}}" class="dt-prices">
+      <view wx:for="{{order.priceLines}}" wx:key="label" class="dt-prices__row">
+        <text class="muted">{{item.label}}</text>
+        <text class="muted">¥{{item.amount}}</text>
+      </view>
+      <view class="muted mt8">线下结算：平台不代收，本价格仅作为结算参考。</view>
+    </view>
+    <view wx:if="{{order.note}}" class="dt-note">备注：{{order.note}}</view>
+  </view>
+
+  <view class="card">
+    <view class="card__head"><text class="card__title">联系信息</text><text class="card__hint">仅本次配送使用</text></view>
+    <view class="dt-line">
+      <view class="grow">
+        <view class="dt-line__label">收件人</view>
+        <view class="dt-line__value">{{order.recipient}}<text wx:if="{{order.phone}}" class="dt-line__sub">{{order.phone}}</text></view>
+      </view>
+      <button wx:if="{{order.phone && (isRunner || isStaff)}}" class="btn btn--ghost btn--sm" bindtap="callRecipient">拨号</button>
+    </view>
+    <view class="hair"></view>
+    <view class="dt-line">
+      <view class="grow">
+        <view class="dt-line__label">代取同学</view>
+        <view class="dt-line__value">{{order.runnerName || '等待同校代取接单'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{photos.length}}" class="card">
+    <view class="card__head"><text class="card__title">快递截图</text><text class="card__hint">{{photos.length}} 张</text></view>
+    <view class="dt-photos">
+      <image wx:for="{{photos}}" wx:key="*this" class="dt-photos__item" src="{{item}}" mode="aspectFill" data-url="{{item}}" bindtap="preview" />
+    </view>
+  </view>
+
+  <view wx:if="{{review}}" class="card">
+    <view class="card__head"><text class="card__title">本次评价</text><text class="card__hint">{{review.rating}} 星</text></view>
+    <view class="dt-stars">{{review.rating}}★</view>
+    <view wx:if="{{review.tags.length}}" class="chips mt8">
+      <view wx:for="{{review.tags}}" wx:key="*this" class="chip chip--on">{{item}}</view>
+    </view>
+    <view wx:if="{{review.text}}" class="muted mt16">{{review.text}}</view>
+  </view>
+
+  <view wx:if="{{mode !== 'share' && (contact.wechatId || contact.phone)}}" class="card card--flat dt-service">
+    <text class="muted">遇到问题？</text>
+    <view class="row--start gap8">
+      <text wx:if="{{contact.wechatId}}" class="link" bindtap="copyWechat">复制客服微信</text>
+      <text wx:if="{{contact.phone}}" class="link" bindtap="callService">拨打客服电话</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card__head"><text class="card__title">订单轨迹</text><text class="card__hint">共 {{order.timeline.length}} 条</text></view>
+    <view class="timeline">
+      <view wx:for="{{order.timeline}}" wx:key="at" class="tl {{index === order.timeline.length - 1 ? 'tl--last' : ''}}">
+        <view class="tl__dot"></view>
+        <view class="tl__body">
+          <view class="tl__msg">{{item.message}}</view>
+          <view class="tl__time">{{item.timeText}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{mode === 'share'}}" class="dt-foot">
+    <button class="btn btn--soft btn--sm" open-type="share">分享给同学</button>
+    <text class="link" bindtap="goHome">返回首页</text>
+  </view>
+
+  <view wx:if="{{canReview}}" class="card mt8">
+    <view class="row">
+      <view class="grow">
+        <view class="h3">这单完成得怎么样？</view>
+        <view class="muted mt8">评价只有你和代取同学看得到</view>
+      </view>
+      <button class="btn btn--primary btn--sm" bindtap="openReview">去评价</button>
+    </view>
+  </view>
+
+  <view class="footer-bar" wx:if="{{mode !== 'share' && (hasAction || isOwner)}}">
+    <view class="btn-row">
+      <button wx:if="{{isOwner || isRunner}}" class="btn btn--ghost dt-share" open-type="share">分享</button>
+      <button wx:if="{{cancellable}}" class="btn btn--ghost" bindtap="action" data-action="cancel" disabled="{{busy}}">取消委托</button>
+      <button wx:if="{{isOwner && order.status !== 'cancelled'}}" class="btn btn--ghost dt-complaint" bindtap="complain" disabled="{{complaintBusy}}">投诉</button>
+      <button wx:if="{{confirmable}}" class="btn btn--primary" bindtap="action" data-action="confirm" loading="{{busy}}" disabled="{{busy}}">确认收货</button>
+      <button wx:if="{{pickupable}}" class="btn btn--primary" bindtap="action" data-action="pickup" loading="{{busy}}" disabled="{{busy}}">已取件，开始配送</button>
+      <button wx:if="{{deliverable}}" class="btn btn--primary" bindtap="action" data-action="deliver" loading="{{busy}}" disabled="{{busy}}">已送达，请同学确认</button>
+    </view>
+  </view>
+
+  <view wx:if="{{reviewDraft}}" class="review-mask" bindtap="closeReview"></view>
+  <view wx:if="{{reviewDraft}}" class="review-sheet">
+    <view class="sheet__head">
+      <text class="sheet__title">评价这次代取</text>
+      <text class="sheet__close" bindtap="closeReview">✕</text>
+    </view>
+    <view class="stars">
+      <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" class="star {{reviewDraft.rating >= item ? 'star--on' : ''}}" data-value="{{item}}" bindtap="pickStar">★</text>
+    </view>
+    <view class="chips mt16">
+      <view wx:for="{{reviewTags}}" wx:key="*this" class="chip {{reviewDraft.tags.indexOf(item) >= 0 ? 'chip--on' : ''}}" data-tag="{{item}}" bindtap="toggleTag">{{item}}</view>
+    </view>
+    <textarea class="textarea sheet__textarea" value="{{reviewDraft.text}}" bindinput="reviewInput" maxlength="200" placeholder="还想说点什么（选填）" />
+    <button class="btn btn--primary btn--block mt24" bindtap="submitReview" loading="{{busy}}" disabled="{{busy}}">提交评价</button>
+  </view>
+</view>
+
+<view wx:else class="page">
+  <view wx:if="{{loading}}" class="loading-line">正在加载订单…</view>
+  <empty-state wx:else icon="○" title="订单不存在或链接已失效" desc="分享链接可能已过期，或订单已被取消。" actionText="回到首页" bind:action="goHome" />
+</view>

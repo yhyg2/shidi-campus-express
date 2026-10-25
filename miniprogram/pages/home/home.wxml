@@ -1,0 +1,136 @@
+<view class="page page--bar">
+  <view class="home__head">
+    <view class="eyebrow">SHIDI · CAMPUS EXPRESS</view>
+    <view class="row">
+      <view class="home__brand">拾递</view>
+      <view class="campus-chip" bindtap="openPicker">
+        <text class="campus-chip__dot"></text>
+        <text>{{campusName || '选择校区'}}</text>
+        <text class="campus-chip__caret">⌄</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{error}}" class="card card--flat mt24">
+    <view class="h3">连接不上数据</view>
+    <view class="muted mt8">{{error}}</view>
+    <button class="btn btn--soft btn--sm mt24" bindtap="retry">重新连接</button>
+  </view>
+
+  <block wx:else>
+    <view class="hero">
+      <view class="hero__badge">同校同学 · 顺路帮取</view>
+      <view class="hero__title">把取快递的时间，</view>
+      <view class="hero__title">留给校园生活。</view>
+      <view class="sub">从驿站到你楼下，同校代取同学帮你走完最后这一程。</view>
+      <button class="btn btn--primary hero__cta" bindtap="create">帮我取快递 ↗</button>
+      <view class="hero__mark">递</view>
+    </view>
+
+    <view wx:if="{{notices.length}}" class="notice-bar" bindtap="notice">
+      <text class="notice-bar__tag">{{notices[0].level === 'warn' ? '通知' : '公告'}}</text>
+      <text class="notice-bar__text">{{notices[0].title}}</text>
+      <text class="notice-bar__more">›</text>
+    </view>
+
+    <view wx:if="{{isLocal}}" class="notice">本地演示数据：还没连接云开发，数据只存在这台手机上。配置方法见项目里的「导入与部署」文档。</view>
+
+    <view wx:if="{{isStaff}}" class="card staff-card" bindtap="admin">
+      <view class="row">
+        <view class="grow">
+          <view class="row--start">
+            <view class="staff-card__icon">◈</view>
+            <view class="grow">
+              <view class="h3">管理后台</view>
+              <view class="muted mt8">{{roleLabel}} · 定价、公告、人员与订单</view>
+            </view>
+          </view>
+        </view>
+        <text class="link">进入 ›</text>
+      </view>
+    </view>
+
+    <view class="sec-head">
+      <text class="h2">进行中的委托</text>
+      <text wx:if="{{orders.length}}" class="link" bindtap="orders">全部订单 ›</text>
+    </view>
+
+    <block wx:if="{{loading}}">
+      <view class="skeleton sk-card"></view>
+      <view class="skeleton sk-card"></view>
+    </block>
+    <block wx:elif="{{orders.length}}">
+      <order-card wx:for="{{orders}}" wx:key="id" order="{{item}}" bind:open="detail" />
+    </block>
+    <view wx:else class="card card--flat empty-card">
+      <empty-state icon="◌" title="还没有进行中的委托" desc="填好取件码和送达位置，剩下的路交给我们。" actionText="新建代取" bind:action="create" />
+    </view>
+
+    <view class="sec-head"><text class="h2">代取</text></view>
+    <view class="card">
+      <view class="row--start">
+        <view class="runner-icon">⇄</view>
+        <view class="grow">
+          <view class="row--start gap8">
+            <view wx:if="{{staleCount}}" class="stale-dot"></view>
+            <view class="h3">{{runnerTitle}}</view>
+          </view>
+          <view class="muted mt8">{{staleTip || runnerDesc}}</view>
+        </view>
+      </view>
+      <view class="btn-row mt24">
+        <button wx:if="{{runnerStatus === 'approved'}}" class="btn btn--soft" bindtap="runner">进入工作台</button>
+        <button wx:if="{{runnerStatus === 'approved'}}" class="btn btn--ghost" bindtap="hall">接单大厅</button>
+        <button wx:elif="{{runnerStatus === 'pending' || runnerStatus === 'suspended'}}" class="btn btn--soft" bindtap="apply">查看认证进度</button>
+        <button wx:else class="btn btn--primary" bindtap="apply">申请代取资格</button>
+      </view>
+    </view>
+
+    <view wx:if="{{contact.wechatId || contact.phone}}" class="card contact-card">
+      <view class="card__head"><text class="card__title">联系客服</text><text class="card__hint">订单异常、取件出问题</text></view>
+      <view wx:if="{{contact.wechatId}}" class="contact-row" bindtap="copyWechat">
+        <view class="grow">
+          <view class="contact-row__label">客服微信</view>
+          <view class="contact-row__value">{{contact.wechatId}}</view>
+        </view>
+        <text class="link">复制</text>
+      </view>
+      <view wx:if="{{contact.phone}}" class="contact-row" bindtap="callService">
+        <view class="grow">
+          <view class="contact-row__label">客服电话</view>
+          <view class="contact-row__value">{{contact.phone}}</view>
+        </view>
+        <text class="link">拨打</text>
+      </view>
+    </view>
+    <view wx:if="{{isStaff && !contact.wechatId && !contact.phone}}" class="card card--flat contact-empty" bindtap="admin">
+      客服联系方式还没填，点这里去后台「设置」里填微信号和电话
+    </view>
+
+    <view class="sec-head"><text class="h2">马上送到楼下</text></view>
+    <view class="steps">
+      <view class="step">
+        <view class="step__no">01</view>
+        <view class="step__body"><view class="step__title">填写快递信息</view><view class="step__desc">驿站、取件码、包裹大小与件数</view></view>
+      </view>
+      <view class="step">
+        <view class="step__no">02</view>
+        <view class="step__body"><view class="step__title">提交后同校接单</view><view class="step__desc">代取同学在接单大厅看到你的委托</view></view>
+      </view>
+      <view class="step">
+        <view class="step__no">03</view>
+        <view class="step__body"><view class="step__title">楼下收件确认</view><view class="step__desc">代取同学送达后由你确认完成，费用线下结算</view></view>
+      </view>
+    </view>
+
+    <view class="home__foot">
+      <view class="muted">拾递 v{{version}} · 校园快递代取</view>
+      <view class="home__legal">
+        <text class="home__legal-link" bindtap="openTerms">《用户协议》</text>
+        <text class="home__legal-link" bindtap="openPrivacy">《隐私政策》</text>
+      </view>
+    </view>
+  </block>
+
+  <campus-picker show="{{pickerShow}}" list="{{campusList}}" bind:close="closePicker" bind:select="pickCampus" />
+</view>

@@ -1,0 +1,35 @@
+<view class="page">
+  <view class="eyebrow">JOIN THE TEAM</view>
+  <view class="h1">加入运营团队</view>
+  <view class="sub mt8">只有三种身份：普通用户、管理员、超级管理员。这里用来接受管理员的邀请。</view>
+
+  <block wx:if="{{joined}}">
+    <view class="card mt32 join-done">
+      <view class="join-done__icon">✓</view>
+      <view class="h2">已加入</view>
+      <view class="muted mt8">你现在的角色是「{{joined.roleLabel}}」</view>
+      <button class="btn btn--primary mt24" bindtap="admin">进入管理后台</button>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="card mt32">
+      <view class="field">
+        <view class="label"><text>邀请码</text><text class="label__flag">由管理员生成</text></view>
+        <input class="input join-input" value="{{code}}" bindinput="onInput" maxlength="12" placeholder="8 位邀请码" />
+        <view wx:if="{{error}}" class="error-text">{{error}}</view>
+        <view class="hint">邀请码一次性使用，过期后需要重新向管理员索取。</view>
+      </view>
+      <button class="btn btn--primary btn--block mt24" bindtap="submit" loading="{{busy}}" disabled="{{busy}}">加入团队</button>
+    </view>
+
+    <view class="card card--flat">
+      <view class="h3">三种身份分别能做什么</view>
+      <view class="join-role"><text class="join-role__name">普通用户</text><text class="join-role__desc">下单；认证代取后可以接单</text></view>
+      <view class="join-role"><text class="join-role__name">管理员</text><text class="join-role__desc">除转移超管外的全部后台权限</text></view>
+      <view class="join-role"><text class="join-role__name">超级管理员</text><text class="join-role__desc">程序内全部权限，唯一，可转移</text></view>
+    </view>
+  </block>
+
+  <view class="join__foot"><text class="link" bindtap="back">返回</text></view>
+</view>

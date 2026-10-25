@@ -1,0 +1,5 @@
+.es { padding: 72rpx 32rpx; text-align: center; }
+.es__icon { font-size: 64rpx; color: #c2cec3; line-height: 1; margin-bottom: 20rpx; }
+.es__title { font-size: 28rpx; color: #55645a; font-weight: 500; }
+.es__desc { font-size: 23rpx; color: #97a297; line-height: 1.7; margin-top: 12rpx; }
+.es__action { display: inline-flex; margin-top: 28rpx; padding: 0 32rpx; }

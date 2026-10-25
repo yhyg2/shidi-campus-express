@@ -1,0 +1,2 @@
+.cp__tick { font-size: 26rpx; color: #24563f; font-weight: 600; }
+.cp__note { margin-top: 20rpx; text-align: center; }

@@ -1,0 +1,17 @@
+<block wx:if="{{show}}">
+  <view class="mask" bindtap="close" catchtouchmove="noop"></view>
+  <view class="sheet" catchtap="noop">
+    <view class="sheet__head">
+      <text class="sheet__title">{{title}}</text>
+      <text class="sheet__close" bindtap="close">✕</text>
+    </view>
+    <view wx:for="{{list}}" wx:key="id" class="sheet__item {{item.active ? 'sheet__item--on' : ''}}" data-id="{{item.id}}" bindtap="pick">
+      <view class="grow">
+        <view class="h3">{{item.name}}</view>
+        <view class="muted">{{item.meta}}</view>
+      </view>
+      <text wx:if="{{item.active}}" class="cp__tick">✓</text>
+    </view>
+    <view class="muted cp__note">不同校区的驿站和楼栋不同，下单前先确认取件地点。</view>
+  </view>
+</block>

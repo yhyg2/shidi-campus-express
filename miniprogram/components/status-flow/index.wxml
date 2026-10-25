@@ -1,0 +1,9 @@
+<view class="sf">
+  <view wx:for="{{flow}}" wx:key="index" class="sf__node {{item.done ? 'is-done' : ''}} {{item.current ? 'is-current' : ''}}">
+    <view class="sf__dot">
+      <text wx:if="{{item.done}}" class="sf__tick">✓</text>
+    </view>
+    <text class="sf__label">{{item.label}}</text>
+    <view wx:if="{{index < flow.length - 1}}" class="sf__line {{item.done ? 'is-done' : ''}}"></view>
+  </view>
+</view>

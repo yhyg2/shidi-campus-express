@@ -1,0 +1,29 @@
+.chip__sub { display: block; font-size: 19rpx; color: #9aa69b; margin-top: 4rpx; }
+.chip--on .chip__sub { color: #5c8570; }
+
+.sizes { display: flex; gap: 14rpx; }
+.size { flex: 1; border: 1rpx solid #e3e8dd; border-radius: 18rpx; padding: 22rpx 18rpx; background: #fbfcf8; }
+.size--on { border-color: #8fb69a; background: #eaf2e6; box-shadow: 0 0 0 3rpx rgba(36,86,63,.06); }
+.size__label { font-size: 28rpx; font-weight: 600; color: #1d2a23; }
+.size__hint { font-size: 19rpx; color: #98a397; line-height: 1.45; margin: 6rpx 0 12rpx; min-height: 56rpx; }
+.size__price { font-size: 28rpx; color: #b56a35; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.stepper { display: inline-flex; align-items: center; border: 1rpx solid #e3e8dd; border-radius: 14rpx; overflow: hidden; background: #f7f8f3; }
+.stepper__btn { width: 88rpx; height: 82rpx; display: flex; align-items: center; justify-content: center; font-size: 34rpx; color: #24563f; }
+.stepper__btn.is-off { color: #c6cfc5; }
+.stepper__value { min-width: 96rpx; text-align: center; font-size: 30rpx; font-weight: 600; border-left: 1rpx solid #e3e8dd; border-right: 1rpx solid #e3e8dd; line-height: 82rpx; }
+
+.price-line { display: flex; align-items: center; justify-content: space-between; padding: 8rpx 0; font-size: 24rpx; color: #55645a; }
+.price-line__value { font-variant-numeric: tabular-nums; color: #3c4d42; }
+.price-line--total { margin-top: 10rpx; padding-top: 18rpx; border-top: 1rpx dashed #dae3cd; font-size: 27rpx; color: #1d2a23; }
+.price-line__total { font-size: 34rpx; font-weight: 600; color: #b56a35; font-variant-numeric: tabular-nums; }
+
+.service-tip { margin-top: 20rpx; font-size: 22rpx; color: #4c7a5f; background: #eef3e7; border-radius: 12rpx; padding: 14rpx 18rpx; line-height: 1.6; }
+.service-tip--warn { color: #8a6a1f; background: #fbf4e4; }
+
+.code-input { letter-spacing: 3rpx; font-size: 32rpx; font-variant-numeric: tabular-nums; }
+.picker-box--readonly { display: flex; align-items: center; justify-content: space-between; }
+
+.sum { display: flex; align-items: baseline; color: #b56a35; }
+.sum__unit { font-size: 24rpx; font-weight: 600; margin-right: 2rpx; }
+.sum__num { font-size: 42rpx; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1; }

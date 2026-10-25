@@ -1,0 +1,122 @@
+<view class="page page--bar">
+  <view class="eyebrow">NEW ORDER</view>
+  <view class="h1">快递到站，帮你取。</view>
+  <view class="sub mt8">{{campusName}} · 填好信息，剩下的路交给我们。</view>
+
+  <view class="card mt32">
+    <view class="card__head"><text class="card__title">01 从哪里取</text><text class="card__hint">取件驿站</text></view>
+    <view class="chips">
+      <view wx:for="{{stations}}" wx:key="id" class="chip {{form.stationId === item.id ? 'chip--on' : ''}}" data-id="{{item.id}}" bindtap="pickStation">
+        <text>{{item.name}}</text>
+        <text wx:if="{{item.openHours}}" class="chip__sub">{{item.openHours}}</text>
+      </view>
+    </view>
+    <view class="service-tip {{serviceOpen ? '' : 'service-tip--warn'}}">{{serviceTip}}</view>
+
+    <view class="field mt32">
+      <view class="label"><text>取件码</text><text class="label__flag">必填</text></view>
+      <input class="input code-input" value="{{form.pickupCode}}" bindinput="onPickupCode" maxlength="9" placeholder="例如 12-3-4567" />
+      <view wx:if="{{errors.pickupCode}}" class="error-text">{{errors.pickupCode}}</view>
+      <view class="hint">只填数字，会自动按 2-1-4 位补短横线。只有你、接单代取和校区管理员可以查看。</view>
+    </view>
+
+    <view class="uploader">
+      <view wx:for="{{photos}}" wx:key="fileID" class="uploader__item">
+        <image class="uploader__img" src="{{item.path}}" mode="aspectFill" data-path="{{item.path}}" bindtap="previewPhoto" />
+        <view class="uploader__del" data-index="{{index}}" catchtap="removePhoto">✕</view>
+      </view>
+      <view wx:if="{{photos.length < 3}}" class="uploader__add" bindtap="upload">
+        <text class="uploader__plus">＋</text>
+        <text class="uploader__label">上传 {{photos.length}}/3</text>
+      </view>
+    </view>
+    <view class="hint">上传快递单号、取件码截图，或快递 App 里的取件页面，方便代取同学核对。</view>
+  </view>
+
+  <view class="card">
+    <view class="card__head"><text class="card__title">02 送到哪里</text><text class="card__hint">{{campusName}}</text></view>
+    <view wx:if="{{buildings.length}}" class="field">
+      <view class="label"><text>配送楼栋</text></view>
+      <picker mode="selector" range="{{buildings}}" value="{{buildingIndex}}" bindchange="pickBuilding">
+        <view class="picker-box">
+          <text class="picker-box__value">{{form.building}}</text>
+          <text class="picker-box__caret">⌄</text>
+        </view>
+      </picker>
+    </view>
+    <view class="field">
+      <view class="label"><text>送达地址</text><text class="label__flag">必填</text></view>
+      <input class="input" value="{{form.room}}" data-field="room" bindinput="onInput" maxlength="60" placeholder="例如 示例交接点 / 3栋楼下 / 约定位置" />
+      <view wx:if="{{errors.room}}" class="error-text">{{errors.room}}</view>
+    </view>
+    <view class="field">
+      <view class="label"><text>收件人</text><text class="label__flag">必填</text></view>
+      <input class="input" value="{{form.recipient}}" data-field="recipient" bindinput="onInput" maxlength="24" placeholder="取件时可能核对的称呼，例如 演示同学甲" />
+      <view wx:if="{{errors.recipient}}" class="error-text">{{errors.recipient}}</view>
+    </view>
+    <view class="field">
+      <view class="label"><text>联系手机</text><text class="label__flag">仅用于本次配送</text></view>
+      <input class="input" value="{{form.phone}}" data-field="phone" bindinput="onInput" type="number" maxlength="11" placeholder="11 位手机号码" />
+      <view wx:if="{{errors.phone}}" class="error-text">{{errors.phone}}</view>
+    </view>
+    <view class="field">
+      <view class="label"><text>备注</text><text class="label__flag">选填</text></view>
+      <textarea class="textarea" value="{{form.note}}" data-field="note" bindinput="onInput" maxlength="200" placeholder="例如：易碎，请轻拿轻放；两件快递在同一驿站" />
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card__head"><text class="card__title">03 包裹与时段</text><text class="card__hint">参考价</text></view>
+    <view class="sizes">
+      <view wx:for="{{sizes}}" wx:key="id" class="size {{form.size === item.id ? 'size--on' : ''}}" data-id="{{item.id}}" bindtap="pickSize">
+        <view class="size__label">{{item.label}}</view>
+        <view class="size__hint">{{item.hint}}</view>
+        <view class="size__price">¥{{item.price}}</view>
+      </view>
+    </view>
+
+    <view class="field mt32">
+      <view class="label"><text>包裹件数</text><text class="label__flag">1–10 件</text></view>
+      <view class="stepper">
+        <view class="stepper__btn {{form.parcelCount <= 1 ? 'is-off' : ''}}" data-delta="-1" bindtap="step">−</view>
+        <text class="stepper__value num">{{form.parcelCount}}</text>
+        <view class="stepper__btn {{form.parcelCount >= 10 ? 'is-off' : ''}}" data-delta="1" bindtap="step">＋</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <view class="label"><text>送达时间</text></view>
+      <picker wx:if="{{slots.length > 1}}" mode="selector" range="{{slots}}" range-key="label" bindchange="pickSlot">
+        <view class="picker-box">
+          <text class="picker-box__value">{{form.slot}}</text>
+          <text class="picker-box__caret">⌄</text>
+        </view>
+      </picker>
+      <view wx:else class="picker-box picker-box--readonly">
+        <text class="picker-box__value">{{form.slot}}</text>
+        <text class="muted">不限定时间</text>
+      </view>
+    </view>
+
+    <view class="hair"></view>
+    <view wx:for="{{priceLines}}" wx:key="label" class="price-line">
+      <text class="muted">{{item.label}}</text>
+      <text class="price-line__value">¥{{item.amount}}</text>
+    </view>
+    <view class="price-line price-line--total">
+      <text>费用合计</text>
+      <text class="price-line__total">¥{{totalText}}</text>
+    </view>
+    <view class="hint">{{settleNote}}</view>
+  </view>
+
+  <view class="footer-bar">
+    <view class="footer-bar__inner">
+      <view class="col">
+        <text class="muted">费用合计</text>
+        <view class="sum"><text class="sum__unit">¥</text><text class="sum__num">{{totalText}}</text></view>
+      </view>
+      <button class="btn btn--primary" bindtap="submit" loading="{{busy}}" disabled="{{busy}}">提交委托</button>
+    </view>
+  </view>
+</view>

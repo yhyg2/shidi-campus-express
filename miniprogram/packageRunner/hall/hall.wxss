@@ -1,0 +1,5 @@
+.hall-tip--stale { border-color: #ecc9c9; background: #fdf1f0; color: #a9503f; }
+.dot--stale { width: 14rpx; height: 14rpx; border-radius: 50%; background: #c9463d; flex-shrink: 0; }
+.hall-tip { margin-top: 28rpx; border-color: #e6dcc2; background: #fbf7e9; }
+.hall-count { margin: 28rpx 0 14rpx; font-size: 22rpx; color: #98a397; }
+.sk-card { height: 190rpx; margin-top: 20rpx; }

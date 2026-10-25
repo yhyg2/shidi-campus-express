@@ -1,0 +1,63 @@
+<view class="page page--bar">
+  <view class="eyebrow">RUNNER WORKSPACE</view>
+  <view class="h1">同学，你的下一程。</view>
+  <view class="sub mt8">{{campusName || '校园'}} · 同时最多接 3 单{{online ? '' : '，当前已休息'}}</view>
+
+  <block wx:if="{{loading}}">
+    <view class="skeleton sk-card"></view>
+  </block>
+
+  <empty-state wx:elif="{{!verified}}" icon="⇄" title="通过认证后开启工作台" desc="代取需要管理员发放的邀请码，提交学号后由管理员核验。" actionText="申请代取资格" bind:action="apply" />
+
+  <block wx:else>
+    <view wx:if="{{serviceTip}}" class="card card--flat service-warn">{{serviceTip}}</view>
+    <view wx:if="{{staleTip}}" class="card card--flat service-warn service-warn--stale">
+      <view class="row--start gap8"><view class="dot dot--stale"></view><text>{{staleTip}}</text></view>
+      <text class="link" bindtap="hall">去大厅 ›</text>
+    </view>
+
+    <view class="card runner-status">
+      <view class="row">
+        <view class="grow">
+          <view class="row--start">
+            <view class="dot {{online ? 'dot--on' : ''}}"></view>
+            <text class="h2">{{online ? '接单中' : '已休息'}}</text>
+          </view>
+          <view class="muted mt8">{{online ? '同校区的待接订单会出现在大厅，也会自动派给你' : '休息时不接收新订单'}}</view>
+        </view>
+        <button class="btn {{online ? 'btn--ghost' : 'btn--primary'}} btn--sm runner-status__btn" bindtap="toggle" loading="{{busy}}" disabled="{{busy}}">{{online ? '暂停接单' : '开始接单'}}</button>
+      </view>
+    </view>
+
+    <view class="stats">
+      <view class="stat"><text class="stat__num">{{stats.active}}</text><text class="stat__label">在手订单</text></view>
+      <view class="stat"><text class="stat__num">{{stats.completed}}</text><text class="stat__label">历史完成</text></view>
+      <view class="stat" bindtap="hall"><text class="stat__num">{{hallCount}}</text><text class="stat__label">同校待接 ›</text></view>
+    </view>
+
+    <view class="sec-head"><text class="h2">我的任务</text><text class="link" bindtap="load">刷新 ↻</text></view>
+
+    <block wx:if="{{tasks.length}}">
+      <view wx:for="{{tasks}}" wx:key="id" class="task">
+        <view class="task__head" data-id="{{item.id}}" bindtap="detail">
+          <view class="grow">
+            <view class="row">
+              <text class="task__route">{{item.stationName}} → {{item.destination || item.room}}</text>
+              <text class="pill pill--{{item.statusTone}}">{{item.statusText}}</text>
+            </view>
+            <view class="muted mt8">{{item.parcelText}} · {{item.slot}} · 参考 ¥{{item.amount}}</view>
+            <view wx:if="{{item.room}}" class="muted">交接：{{item.room}}</view>
+          </view>
+        </view>
+        <view class="task__actions">
+          <button class="btn btn--ghost btn--sm" data-id="{{item.id}}" bindtap="detail">查看详情</button>
+          <button wx:if="{{item.status === 'assigned'}}" class="btn btn--primary btn--sm" data-id="{{item.id}}" data-action="pickup" bindtap="quick" disabled="{{busy}}">已取件</button>
+          <button wx:if="{{item.status === 'picked_up'}}" class="btn btn--primary btn--sm" data-id="{{item.id}}" data-action="deliver" bindtap="quick" disabled="{{busy}}">已送达</button>
+        </view>
+      </view>
+    </block>
+    <view wx:else class="card card--flat">
+      <empty-state icon="◌" title="暂时没有配送任务" desc="开启接单后，同校区的待接订单会出现在接单大厅。" actionText="去接单大厅" bind:action="hall" />
+    </view>
+  </block>
+</view>

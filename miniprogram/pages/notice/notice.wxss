@@ -1,0 +1,7 @@
+.notice-item { padding: 28rpx; }
+.notice-item--warn { border-color: #e8d7bb; background: #fdf9f0; }
+.notice-item__level { font-size: 19rpx; color: #6d7f6f; background: #eef1e8; border-radius: 6rpx; padding: 3rpx 12rpx; }
+.notice-item--warn .notice-item__level { color: #8a6a1f; background: #f7ecd6; }
+.notice-item__pin { font-size: 19rpx; color: #24563f; background: #e7efe4; border-radius: 6rpx; padding: 3rpx 12rpx; margin-right: 10rpx; }
+.notice-item__body { margin-top: 12rpx; font-size: 25rpx; color: #55645a; line-height: 1.75; white-space: pre-wrap; }
+.notice__foot { text-align: center; padding: 32rpx 0 24rpx; font-size: 21rpx; color: #b2bcb1; }

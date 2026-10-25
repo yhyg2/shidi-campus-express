@@ -1,0 +1,24 @@
+<view class="page agree">
+  <view class="agree__tabs">
+    <view class="agree__tab {{type === 'terms' ? 'agree__tab--on' : ''}}" data-type="terms" bindtap="switchTo">用户协议</view>
+    <view class="agree__tab {{type === 'privacy' ? 'agree__tab--on' : ''}}" data-type="privacy" bindtap="switchTo">隐私政策</view>
+  </view>
+
+  <view wx:if="{{doc}}" class="card agree__card">
+    <view class="agree__title">{{doc.title}}</view>
+    <view class="agree__meta">更新日期：{{doc.updated}} · 版本 {{doc.version}}</view>
+    <view wx:for="{{doc.blocks}}" wx:key="title" class="agree__block">
+      <view class="agree__h">{{item.title}}</view>
+      <view class="agree__p">{{item.body}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{gate}}" class="agree__gate">
+    <view class="muted agree__gate-tip">使用拾递前，请阅读并同意以上两份文件</view>
+    <button class="btn btn--primary btn--block" bindtap="agree">同意并继续</button>
+    <view class="agree__refuse" bindtap="refuse">不同意</view>
+  </view>
+  <view wx:else class="agree__back">
+    <button class="btn btn--ghost btn--block" bindtap="back">返回</button>
+  </view>
+</view>

@@ -1,0 +1,23 @@
+<view class="oc" hover-class="oc--hover" hover-stay-time="80" bindtap="onTap">
+  <view class="oc__head">
+    <view class="oc__route">
+      <text class="oc__station">{{order.stationName}}</text>
+      <text class="oc__arrow">→</text>
+      <text class="oc__building">{{order.destination || order.building || order.room}}</text>
+    </view>
+    <text class="pill pill--{{order.statusTone}}">{{order.statusText}}</text>
+  </view>
+
+  <view class="oc__meta">
+    <text class="oc__meta-txt">{{order.subText}}</text>
+  </view>
+
+  <view class="oc__foot">
+    <text class="oc__time">{{order.createRelative}}</text>
+    <view class="oc__right">
+      <text class="oc__amount"><text class="oc__unit">¥</text>{{order.amount}}</text>
+      <text wx:if="{{actionText}}" class="oc__btn" catchtap="onAction">{{actionText}}</text>
+      <text wx:else class="oc__caret">›</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,4 @@
+.pv-item { margin-top: 20rpx; }
+.pv-label { display: block; font-size: 25rpx; color: #24563f; font-weight: 500; margin-bottom: 4rpx; }
+.pv-text { display: block; font-size: 24rpx; color: #55645a; line-height: 1.7; }
+.pv-foot { text-align: center; padding: 40rpx 0 24rpx; font-size: 21rpx; color: #b2bcb1; }
