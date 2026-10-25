@@ -1,4 +1,6 @@
-# 拾递 · 校园快递代取
+# shidi-campus-express · 校园快递代取微信小程序
+
+**第一次使用请先看：[说明文档](说明文档.md)**，包含运行、云端部署、管理员初始化、版本改动及验证范围。
 
 A WeChat Mini Program for campus parcel pickup and delivery, with student orders, runner workflows, admin tools, and a local demo.
 
